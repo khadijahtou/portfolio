@@ -3,7 +3,7 @@ import React from "react";
 
 function Process() {
   return (
-    <div className="bg-gray-50 p-3">
+    <div className="bg-gray-50 p-3" id="process">
       <h1 className="text-3xl font-bold text-center mb-8">My Process</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="bg-gray-100 p-6 rounded-lg shadow-md">

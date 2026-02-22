@@ -3,7 +3,10 @@ import image from "../assets/image.png";
 
 function About() {
   return (
-    <div className=" grid grid-cols-1 md:grid-cols-2 gap-4 items-center p-3 md:p-6 bg-gray-50">
+    <div
+      className=" grid grid-cols-1 md:grid-cols-2 gap-4 items-center p-3 md:p-6 bg-gray-50 "
+      id="about"
+    >
       <div className="aspect-square w-full rounded-lg overflow-hidden">
         <img
           src={image}

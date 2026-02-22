@@ -34,7 +34,7 @@ function Contact() {
   };
 
   return (
-    <div className="p-3 bg-gray-50 flex gap-3 flex-col">
+    <div className="p-3 bg-gray-50 flex gap-3 flex-col" id="contact">
       <h3 className="text-center font-bold text-xl lg:text-4xl">
         Let's Work Together
       </h3>
@@ -45,7 +45,7 @@ function Contact() {
       <form
         ref={form}
         onSubmit={sendEmail}
-        className="bg-white shadow-sm rounded p-4 w-full md:w-1/2 mx-auto"
+        className="bg-white shadow-sm rounded p-4 w-full md:w-1/2 mx-auto hover:scale-y-75"
       >
         <div className="flex flex-col md:flex-col gap-4 mt-6 ">
           <label htmlFor="name">Name</label>
@@ -73,7 +73,7 @@ function Contact() {
         ></textarea>
         <button
           type="submit"
-          className="bg-purple-400 rounded p-3 text-gray-200 w-full mt-4"
+          className="bg-purple-400 rounded p-3 text-gray-200 w-full mt-4 hover:bg-purple-200"
           disabled={loading}
         >
           {loading ? "Sending..." : "Send Message"} {/* Send Message */}

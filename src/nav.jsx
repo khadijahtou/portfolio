@@ -72,21 +72,22 @@ function Nav() {
           </Link>
         </motion.ul>
       </motion.div>
-
-      <motion.button
-        className=" rounded p-3  "
-        initial={false}
-        onClick={() => setOpen(!open)}
-        animate={{
-          backgroundColor: open ? "#E6D6FF" : "#A78BFA",
-          color: open ? "#6A00F4" : "#ffffff",
-        }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.3 }}
-      >
-        Resume
-      </motion.button>
+      <a href="/Resume.pdf">
+        <motion.button
+          className=" rounded p-3  "
+          initial={false}
+          onClick={() => setOpen(!open)}
+          animate={{
+            backgroundColor: open ? "#E6D6FF" : "#A78BFA",
+            color: open ? "#6A00F4" : "#ffffff",
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.3 }}
+        >
+          Resume
+        </motion.button>
+      </a>
     </div>
   );
 }
