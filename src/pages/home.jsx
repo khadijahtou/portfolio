@@ -5,11 +5,13 @@ import About from "../components/about.jsx";
 import Skills from "../components/skills.jsx";
 import Process from "../components/process.jsx";
 import Contact from "../components/contact.jsx";
+import Project from "../components/project.jsx";
 
 function Home() {
   return (
     <div>
       <Hero />
+      <Project />
       <About />
       <Skills />
       <Process />

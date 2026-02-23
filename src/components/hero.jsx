@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Projects from "./project.jsx";
 
 function Hero() {
   return (
@@ -15,9 +17,11 @@ function Hero() {
           functionality.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
-          <button className="bg-purple-300 rounded p-3 text-gray-200 w-40 hover:bg-white">
-            View Projects
-          </button>
+          <Link to="/projects">
+            <button className="bg-purple-300 rounded p-3 text-gray-200 w-40 hover:bg-white">
+              View Projects
+            </button>
+          </Link>
           <a href="/Resume.pdf" download>
             <button className=" bg-white rounded p-3 text-purple-200 border border-purple-100 w-40 hover:bg-purple-100">
               Download Resume
