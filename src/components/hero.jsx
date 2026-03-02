@@ -22,7 +22,7 @@ function Hero() {
 
   return (
     <motion.div
-      className="grid grid-cols-1 md:grid-cols-2 relative"
+      className="grid grid-cols-1 md:grid-cols-2 relative mt-3"
       id="home"
       variants={container}
       initial="hidden"

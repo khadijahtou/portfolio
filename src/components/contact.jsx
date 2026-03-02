@@ -94,10 +94,11 @@ function Contact() {
       </motion.p>
 
       {/* Form Card */}
+      {/* Form Card */}
       <motion.form
         ref={form}
         onSubmit={sendEmail}
-        className="bg-white rounded-2xl p-8 w-full md:w-1/2 flex flex-col gap-6 cursor-pointer"
+        className="bg-white rounded-2xl p-8 w-full md:w-1/2 flex flex-col gap-8 shadow-lg"
         variants={formVariants}
         initial="hidden"
         whileInView="show"
@@ -109,11 +110,25 @@ function Contact() {
           <input
             type="text"
             name="name"
-            placeholder="Your Name"
-            className="peer p-3 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+            id="name"
+            placeholder=" "
+            className="peer w-full p-4 border border-gray-300 rounded-lg 
+                 focus:outline-none focus:ring-2 focus:ring-purple-400 
+                 focus:border-transparent transition"
             required
           />
-          <label className="absolute left-3 -top-3 text-gray-400 text-sm peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-base transition-all">
+          <label
+            htmlFor="name"
+            className="absolute left-4 top-4 text-gray-500 
+                 transition-all duration-200
+                 peer-placeholder-shown:top-4 
+                 peer-placeholder-shown:text-base
+                 peer-focus:-top-2 
+                 peer-focus:text-sm 
+                 peer-focus:text-purple-500
+                 -top-2 text-sm
+                 bg-white px-1"
+          >
             Name
           </label>
         </div>
@@ -123,11 +138,25 @@ function Contact() {
           <input
             type="email"
             name="email"
-            placeholder="Your Email"
-            className="peer p-3 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+            id="email"
+            placeholder=" "
+            className="peer w-full p-4 border border-gray-300 rounded-lg 
+                 focus:outline-none focus:ring-2 focus:ring-purple-400 
+                 focus:border-transparent transition"
             required
           />
-          <label className="absolute left-3 -top-3 text-gray-400 text-sm peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-base transition-all">
+          <label
+            htmlFor="email"
+            className="absolute left-4 top-4 text-gray-500 
+                 transition-all duration-200
+                 peer-placeholder-shown:top-4 
+                 peer-placeholder-shown:text-base
+                 peer-focus:-top-2 
+                 peer-focus:text-sm 
+                 peer-focus:text-purple-500
+                 -top-2 text-sm
+                 bg-white px-1"
+          >
             Email
           </label>
         </div>
@@ -136,11 +165,26 @@ function Contact() {
         <div className="relative">
           <textarea
             name="message"
-            placeholder="Tell me about your project"
-            className="peer p-3 border border-gray-300 rounded w-full h-32 focus:outline-none focus:ring-2 focus:ring-purple-400 transition resize-none"
+            id="message"
+            placeholder=" "
+            className="peer w-full p-4 border border-gray-300 rounded-lg 
+                 h-32 resize-none
+                 focus:outline-none focus:ring-2 focus:ring-purple-400 
+                 focus:border-transparent transition"
             required
           ></textarea>
-          <label className="absolute left-3 -top-3 text-gray-400 text-sm peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-base transition-all">
+          <label
+            htmlFor="message"
+            className="absolute left-4 top-4 text-gray-500 
+                 transition-all duration-200
+                 peer-placeholder-shown:top-4 
+                 peer-placeholder-shown:text-base
+                 peer-focus:-top-2 
+                 peer-focus:text-sm 
+                 peer-focus:text-purple-500
+                 -top-2 text-sm
+                 bg-white px-1"
+          >
             Message
           </label>
         </div>
@@ -148,16 +192,17 @@ function Contact() {
         {/* Submit Button */}
         <motion.button
           type="submit"
-          className="bg-purple-400 rounded-xl p-3 text-white w-full font-semibold hover:bg-purple-500 transition-all"
+          className="bg-gradient-to-r from-purple-500 to-purple-400 
+               rounded-xl p-4 text-white w-full font-semibold 
+               hover:from-purple-600 hover:to-purple-500 
+               transition-all"
           disabled={loading}
           whileTap={{ scale: 0.95 }}
         >
           {loading ? "Sending..." : "Send Message"}
         </motion.button>
 
-        {success && (
-          <p className="text-green-500 mt-2 text-center">{success}</p>
-        )}
+        {success && <p className="text-green-500 text-center">{success}</p>}
       </motion.form>
 
       {/* Social Icons */}
@@ -167,7 +212,7 @@ function Contact() {
           variants={iconVariants}
           whileHover="hover"
         >
-          <Linkedin className="text-black hover:text-purple-700 cursor-pointer bg-white rounded-full p-3 h-12 w-12" />
+          <Linkedin className="text-black hover:text-purple-700 cursor-pointer bg-white rounded p-3 h-12 w-12" />
         </motion.a>
         <motion.a
           href="https://github.com/khadijahtou"
