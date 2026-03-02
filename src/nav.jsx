@@ -1,94 +1,123 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { NavLink } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 function Nav() {
-  const navContainer = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-  const navItem = {
-    hidden: { opacity: 0, y: -20 },
-    show: { opacity: 1, y: 0 },
-  };
   const [open, setOpen] = useState(false);
+
+  const navLinkStyles = ({ isActive }) =>
+    `relative pb-1 transition duration-300 ${
+      isActive ? "text-purple-600" : "text-gray-700"
+    }`;
+
+  const underline = ({ isActive }) =>
+    isActive
+      ? "after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-purple-600"
+      : "";
+
   return (
-    //   {open && (
-    //     <div className="absolute top-16 right-0 left-0 w-full h-screen bg-gray-900 flex flex-col items-center gap-4 justify-center text-white md:hidden">
-    //       <ul>
-    //         <button onClick={() => setOpen(false)}>
-    //           {" "}
-    //           <IoMdClose className="text-[28px]" />{" "}
-    //         </button>
-    //         <li>
-    //           <Link to="/">Home</Link>
-    //         </li>
-    //         <li>
-    //           <Link to="/projects">Projects</Link>
-    //         </li>
-    //         <li>
-    //           <Link to="/about">About</Link>
-    //         </li>
-    //         <li>
-    //           <Link to="/skills">Skills</Link>
-    //         </li>
-    //         <li>
-    //           <Link to="/contact">Contact</Link>
-    //         </li>
-    //       </ul>
-    //     </div>
-    //   )}
-    <div className=" fixed border-gray-200 border-b top-0 z-20 right-0 left-0 w-full h-14  text-black flex items-center gap-4 justify-between p-3 ">
-      <motion.div
-        variants={navContainer}
-        initial="hidden"
-        animate="show"
-        // transition={{ duration: 1.5 }}
-        className="  flex gap-3  "
-      >
-        <motion.ul
-          variants={navItem}
-          className="text-[16px] text-gray-300 flex gap-3"
-        >
-          {" "}
-          <Link to="/" variants={navItem}>
-            Home
-          </Link>
-          <Link to="/projects" variants={navItem}>
-            Projects
-          </Link>
-          <Link to="/about" variants={navItem}>
-            About
-          </Link>
-          <Link to="/skills" variants={navItem}>
-            Skills
-          </Link>
-          <Link to="/contact" variants={navItem}>
-            Contact
-          </Link>
-        </motion.ul>
-      </motion.div>
-      <a href="/Resume.pdf">
-        <motion.button
-          className=" rounded p-3  "
-          initial={false}
-          onClick={() => setOpen(!open)}
-          animate={{
-            backgroundColor: open ? "#E6D6FF" : "#A78BFA",
-            color: open ? "#6A00F4" : "#ffffff",
-          }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ duration: 0.3 }}
-        >
-          Resume
-        </motion.button>
-      </a>
-    </div>
+    <>
+      {/* NAVBAR */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b shadow-sm">
+        <div className="max-w-6xl mx-auto flex justify-between items-center h-16 px-6">
+          {/* LOGO */}
+          <NavLink
+            to="/"
+            className="text-xl font-bold text-purple-300 hidden md:block"
+          >
+            Portfolio
+          </NavLink>
+
+          {/* DESKTOP MENU */}
+          <ul className="hidden md:flex items-center gap-8 font-medium">
+            {[
+              { path: "/", name: "Home" },
+              { path: "/projects", name: "Projects" },
+              { path: "/about", name: "About" },
+              { path: "/skills", name: "Skills" },
+              { path: "/process", name: "Process" },
+              { path: "/contact", name: "Contact" },
+            ].map((item) => (
+              <li key={item.path}>
+                <NavLink
+                  to={item.path}
+                  className={(props) =>
+                    `${navLinkStyles(props)} ${underline(props)}`
+                  }
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
+
+            <li>
+              <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer">
+                <button className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition">
+                  Resume
+                </button>
+              </a>
+            </li>
+          </ul>
+
+          {/* MOBILE TOGGLE */}
+          <button
+            className="md:hidden text-purple-600"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+      </div>
+
+      {/* MOBILE DROPDOWN */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-16 left-0 w-full bg-white shadow-md md:hidden"
+          >
+            <ul className="flex flex-col items-center gap-6 py-8 font-medium">
+              {[
+                { path: "/", name: "Home" },
+                { path: "/projects", name: "Projects" },
+                { path: "/about", name: "About" },
+                { path: "/skills", name: "Skills" },
+                { path: "/process", name: "Process" },
+                { path: "/contact", name: "Contact" },
+              ].map((item) => (
+                <li key={item.path}>
+                  <NavLink
+                    to={item.path}
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) =>
+                      `relative pb-1 ${
+                        isActive
+                          ? "text-purple-600 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-purple-600"
+                          : "text-gray-700"
+                      }`
+                    }
+                  >
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
+
+              <li>
+                <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer">
+                  <button className="bg-purple-500 text-white px-5 py-2 rounded-lg">
+                    Resume
+                  </button>
+                </a>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
