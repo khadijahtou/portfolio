@@ -6,98 +6,52 @@ import { Menu, X } from "lucide-react";
 function Nav() {
   const [open, setOpen] = useState(false);
 
-  const navLinkStyles = ({ isActive }) =>
-    `relative pb-1 transition duration-300 ${
-      isActive ? "text-purple-600" : "text-gray-700"
-    }`;
-
-  const underline = ({ isActive }) =>
-    isActive
-      ? "after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-purple-600"
-      : "";
+  const links = [
+    { path: "/", name: "Home" },
+    { path: "/projects", name: "Projects" },
+    { path: "/about", name: "About" },
+    { path: "/skills", name: "Skills" },
+    { path: "/process", name: "Process" },
+    { path: "/contact", name: "Contact" },
+  ];
 
   return (
     <>
       {/* NAVBAR */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b shadow-sm">
-        <div className="max-w-6xl mx-auto flex justify-between items-center h-16 px-6">
-          {/* LOGO */}
-          <NavLink
-            to="/"
-            className="text-xl font-bold text-purple-300 hidden md:block"
-          >
-            Portfolio
-          </NavLink>
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b">
+        <div className="max-w-6xl mx-auto h-16 px-6 flex items-center">
+          {/* MOBILE VIEW */}
+          <div className="flex justify-between items-center w-full md:hidden">
+            {/* LEFT: MENU ICON */}
+            <button className="text-purple-600" onClick={() => setOpen(!open)}>
+              {open ? <X size={28} /> : <Menu size={28} />}
+            </button>
 
-          {/* DESKTOP MENU */}
-          <ul className="hidden md:flex items-center gap-8 font-medium">
-            {[
-              { path: "/", name: "Home" },
-              { path: "/projects", name: "Projects" },
-              { path: "/about", name: "About" },
-              { path: "/skills", name: "Skills" },
-              { path: "/process", name: "Process" },
-              { path: "/contact", name: "Contact" },
-            ].map((item) => (
-              <li key={item.path}>
-                <NavLink
-                  to={item.path}
-                  className={(props) =>
-                    `${navLinkStyles(props)} ${underline(props)}`
-                  }
-                >
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
+            {/* RIGHT: RESUME BUTTON */}
+            <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <button className="bg-purple-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-600 transition">
+                Resume
+              </button>
+            </a>
+          </div>
 
-            <li>
-              <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer">
-                <button className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition">
-                  Resume
-                </button>
-              </a>
-            </li>
-          </ul>
+          {/* DESKTOP VIEW */}
+          <div className="hidden md:flex justify-between items-center w-full">
+            {/* Logo */}
+            <NavLink to="/" className="text-xl font-bold text-purple-500">
+              Portfolio
+            </NavLink>
 
-          {/* MOBILE TOGGLE */}
-          <button
-            className="md:hidden text-purple-600"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X size={28} /> : <Menu size={28} />}
-          </button>
-        </div>
-      </div>
-
-      {/* MOBILE DROPDOWN */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-16 left-0 w-full bg-white shadow-md md:hidden"
-          >
-            <ul className="flex flex-col items-center gap-6 py-8 font-medium">
-              {[
-                { path: "/", name: "Home" },
-                { path: "/projects", name: "Projects" },
-                { path: "/about", name: "About" },
-                { path: "/skills", name: "Skills" },
-                { path: "/process", name: "Process" },
-                { path: "/contact", name: "Contact" },
-              ].map((item) => (
+            <ul className="flex items-center gap-8 font-medium">
+              {links.map((item) => (
                 <li key={item.path}>
                   <NavLink
                     to={item.path}
-                    onClick={() => setOpen(false)}
                     className={({ isActive }) =>
-                      `relative pb-1 ${
+                      `relative pb-1 transition ${
                         isActive
                           ? "text-purple-600 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-purple-600"
-                          : "text-gray-700"
+                          : "text-gray-700 hover:text-purple-500"
                       }`
                     }
                   >
@@ -108,11 +62,44 @@ function Nav() {
 
               <li>
                 <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer">
-                  <button className="bg-purple-500 text-white px-5 py-2 rounded-lg">
+                  <button className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition">
                     Resume
                   </button>
                 </a>
               </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* MOBILE DROPDOWN MENU */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed top-16 left-0 w-1/2 bg-white shadow-lg border-b z-40 md:hidden"
+          >
+            <ul className="flex flex-col py-6 px-6 space-y-6 font-medium">
+              {links.map((item) => (
+                <li key={item.path}>
+                  <NavLink
+                    to={item.path}
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) =>
+                      `block transition ${
+                        isActive
+                          ? "text-purple-600 border-l-4 border-purple-600 pl-3"
+                          : "text-gray-700 hover:text-purple-500"
+                      }`
+                    }
+                  >
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </motion.div>
         )}
